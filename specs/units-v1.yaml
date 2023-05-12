@@ -185,6 +185,10 @@ components:
         - $ref: '#/components/schemas/IUnitResponse'
         - $ref: '#/components/schemas/UnitResponseMulti'
 
+    UnitInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IUnitResponse'
+
 
     # REQUEST PARAMS  ======================
 
@@ -412,3 +416,4 @@ components:
               update: '#/components/schemas/UnitUpdateResponse'
               delete: '#/components/schemas/UnitDeleteResponse'
               search: '#/components/schemas/UnitSearchResponse'
+              init: '#/components/schemas/UnitInitResponse'

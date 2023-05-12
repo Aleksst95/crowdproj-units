@@ -12,6 +12,7 @@ fun UntsContext.toTransport(): IUnitResponse = when (val cmd = command) {
     UntsCommand.UPDATE -> toTransportUpdate()
     UntsCommand.DELETE -> toTransportDelete()
     UntsCommand.SEARCH -> toTransportSearch()
+    UntsCommand.INIT -> toTransportInit()
     UntsCommand.NONE -> throw UnknownUntsCommand(cmd)
 }
 
@@ -48,6 +49,12 @@ fun UntsContext.toTransportSearch() = UnitSearchResponse(
     result = if (state == UntsState.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
     errors = errors.toTransportErrors(),
     units = unitsResponse.toTransport()
+)
+
+fun UntsContext.toTransportInit() = UnitInitResponse(
+    requestId = this.requestId.asString().takeIf { it.isNotBlank() },
+    result = if (state == UntsState.RUNNING) ResponseResult.SUCCESS else ResponseResult.ERROR,
+    errors = errors.toTransportErrors()
 )
 
 fun List<UntsUnit>.toTransport(): List<UnitResponseObject> = this

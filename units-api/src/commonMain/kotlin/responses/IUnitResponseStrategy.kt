@@ -5,12 +5,13 @@ import com.crowdproj.marketplace.units.api.v1.models.IUnitResponse
 
 sealed interface IUnitResponseStrategy: IApiStrategy<IUnitResponse> {
     companion object {
-        val members = listOf(
+        private val members = listOf(
             CreateResponseStrategy,
             ReadResponseStrategy,
             UpdateResponseStrategy,
             DeleteResponseStrategy,
             SearchResponseStrategy,
+            InitResponseStrategy,
         )
         val membersByDiscriminator = members.associateBy { it.discriminator }
         val membersByClazz = members.associateBy { it.clazz }

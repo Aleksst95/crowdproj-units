@@ -6,5 +6,6 @@ enum class UntsCommand {
     READ,
     UPDATE,
     DELETE,
-    SEARCH
+    SEARCH,
+    INIT
 }

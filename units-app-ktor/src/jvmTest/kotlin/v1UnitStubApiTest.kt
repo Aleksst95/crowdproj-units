@@ -78,7 +78,7 @@ class V1UnitStubApiTest {
     fun update() = testApplication {
         val response = client.post("/v1/unit/update") {
             val requestObj = UnitUpdateRequest(
-                requestId = "12345",
+                requestId = "123",
                 params = UnitUpdateParams(
                     id = "1",
                     alias = "Kilogram",
@@ -112,7 +112,7 @@ class V1UnitStubApiTest {
     fun delete() = testApplication {
         val response = client.post("/v1/unit/delete") {
             val requestObj = UnitDeleteRequest(
-                requestId = "12345",
+                requestId = "123",
                 params = UnitDeleteParams(
                     unitId = "1"
                 ),
@@ -134,14 +134,14 @@ class V1UnitStubApiTest {
         assertEquals("Kilogram", responseObj.unit.alias)
         assertEquals("Kg", responseObj.unit.unit)
         assertEquals("Unit of mass", responseObj.unit.description)
-        assertEquals(UnitStatus.CONFIRMED, responseObj.unit.status)
+        assertEquals(UnitStatus.DELETED, responseObj.unit.status)
     }
 
     @Test
     fun search() = testApplication {
         val response = client.post("/v1/unit/search") {
             val requestObj = UnitSearchRequest(
-                requestId = "12345",
+                requestId = "123",
                 params = UnitSearchParams(
                     unitFilter = UnitSearchFilter(
                         search = "gram"

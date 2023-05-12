@@ -47,9 +47,11 @@ kotlin {
                 implementation(ktor("core")) // "io.ktor:ktor-server-core:$ktorVersion"
                 implementation(ktor("cio"))
                 implementation(ktor("config-yaml"))
+                implementation(ktor("websockets"))
 
                 implementation(ktor("content-negotiation"))
                 implementation(ktor("kotlinx-json", prefix = "serialization-"))
+                implementation(ktor("websockets", prefix = "client-"))
             }
         }
         val commonTest by getting {

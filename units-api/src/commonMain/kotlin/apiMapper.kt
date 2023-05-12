@@ -1,6 +1,8 @@
 package com.crowdproj.marketplace.units.api.v1
 
 import com.crowdproj.marketplace.units.api.v1.models.*
+import com.crowdproj.marketplace.units.api.v1.requests.IUnitRequestStrategy
+import com.crowdproj.marketplace.units.api.v1.responses.IUnitResponseStrategy
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
@@ -15,31 +17,22 @@ val apiMapper = Json {
 
     serializersModule = SerializersModule {
         polymorphicDefaultSerializer(IUnitRequest::class) {
+            val strategy = IUnitRequestStrategy.membersByClazz[it::class] ?: return@polymorphicDefaultSerializer null
             @Suppress("UNCHECKED_CAST")
-            when(it) {
-                is UnitCreateRequest  ->  RequestSerializer(UnitCreateRequest.serializer()) as SerializationStrategy<IUnitRequest>
-                is UnitReadRequest    ->  RequestSerializer(UnitReadRequest.serializer()) as SerializationStrategy<IUnitRequest>
-                is UnitUpdateRequest  ->  RequestSerializer(UnitUpdateRequest.serializer()) as SerializationStrategy<IUnitRequest>
-                is UnitDeleteRequest  ->  RequestSerializer(UnitDeleteRequest.serializer()) as SerializationStrategy<IUnitRequest>
-                is UnitSearchRequest  ->  RequestSerializer(UnitSearchRequest.serializer()) as SerializationStrategy<IUnitRequest>
-                else -> null
-            }
+            RequestSerializer(strategy.serializer) as SerializationStrategy<IUnitRequest>
         }
-        polymorphicDefault(IUnitRequest::class) {
+
+        polymorphicDefaultDeserializer(IUnitRequest::class ) {
             UnitRequestSerializer
         }
+
         polymorphicDefaultSerializer(IUnitResponse::class) {
+            val strategy = IUnitResponseStrategy.membersByClazz[it::class] ?: return@polymorphicDefaultSerializer null
             @Suppress("UNCHECKED_CAST")
-            when(it) {
-                is UnitCreateResponse  ->  ResponseSerializer(UnitCreateResponse.serializer()) as SerializationStrategy<IUnitResponse>
-                is UnitReadResponse    ->  ResponseSerializer(UnitReadResponse.serializer()) as SerializationStrategy<IUnitResponse>
-                is UnitUpdateResponse  ->  ResponseSerializer(UnitUpdateResponse.serializer()) as SerializationStrategy<IUnitResponse>
-                is UnitDeleteResponse  ->  ResponseSerializer(UnitDeleteResponse.serializer()) as SerializationStrategy<IUnitResponse>
-                is UnitSearchResponse  ->  ResponseSerializer(UnitSearchResponse.serializer()) as SerializationStrategy<IUnitResponse>
-                else -> null
-            }
+            ResponseSerializer(strategy.serializer) as SerializationStrategy<IUnitResponse>
         }
-        polymorphicDefault(IUnitResponse::class) {
+
+        polymorphicDefaultDeserializer(IUnitResponse::class) {
             UnitResponseSerializer
         }
 

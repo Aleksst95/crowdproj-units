@@ -39,7 +39,7 @@ suspend fun ApplicationCall.deleteUnit(){
     val request = apiMapper.decodeFromString<UnitDeleteRequest>(receiveText())
     val context = UntsContext()
     context.fromTransport(request)
-    context.unitResponse = UntsUnitStub.getUnit()
+    context.unitResponse = UntsUnitStub.getDeletedUnit()
     respond(apiMapper.encodeToString(context.toTransportDelete()))
 }
 

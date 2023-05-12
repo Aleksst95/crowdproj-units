@@ -25,6 +25,8 @@ object UntsUnitStub {
 
     fun getUnit(): UntsUnit = UNIT_KILOGRAM.copy()
 
+    fun getDeletedUnit(): UntsUnit = UNIT_KILOGRAM.copy(status = UntsUnitStatus.DELETED)
+
     fun getUnitList() = listOf(
         UNIT_KILOGRAM.copy(),
         UNIT_GRAM.copy(),
